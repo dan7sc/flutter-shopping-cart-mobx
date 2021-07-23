@@ -1,5 +1,6 @@
 import 'package:carrinho_de_compras/shared/models/product_model.dart';
 import 'package:carrinho_de_compras/shared/utils/extensions.dart';
+import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart';
 
 part 'home_controller.g.dart';
@@ -7,6 +8,8 @@ part 'home_controller.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
+  String errorMessage = "";
+
   @observable
   AppStatus appStatus = AppStatus.empty;
 
@@ -25,8 +28,19 @@ abstract class _HomeControllerBase with Store {
           ),
         ),
       );
+
+      throw PlatformException(
+        code: "404",
+        message: "Dados indisponíveis no momento",
+      );
+
       appStatus = products.isNotEmpty ? AppStatus.success : AppStatus.empty;
+    } on PlatformException catch (e) {
+      errorMessage = e.message.toString();
+      appStatus = AppStatus.error;
+      appStatus.message();
     } catch (e) {
+      errorMessage = e.toString();
       appStatus = AppStatus.error;
       appStatus.message();
     }
