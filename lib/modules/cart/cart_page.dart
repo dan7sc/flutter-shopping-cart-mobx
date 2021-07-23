@@ -1,6 +1,6 @@
 import 'package:carrinho_de_compras/modules/cart/cart_controller.dart';
-import 'package:carrinho_de_compras/modules/home/home_controller.dart';
 import 'package:carrinho_de_compras/shared/models/product_model.dart';
+import 'package:carrinho_de_compras/shared/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../../state_builder.dart';

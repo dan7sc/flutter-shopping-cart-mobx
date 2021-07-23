@@ -1,9 +1,8 @@
 import 'package:carrinho_de_compras/shared/models/product_model.dart';
+import 'package:carrinho_de_compras/shared/utils/extensions.dart';
 import 'package:mobx/mobx.dart';
 
 part 'home_controller.g.dart';
-
-enum AppStatus { success, loading, error, empty }
 
 class HomeController = _HomeControllerBase with _$HomeController;
 
@@ -31,20 +30,5 @@ abstract class _HomeControllerBase with Store {
       appStatus = AppStatus.error;
       appStatus.message();
     }
-  }
-}
-
-extension stateMessage on AppStatus {
-  String message() {
-    if (this == AppStatus.error) {
-      return "Ops! Algo deu errado";
-    }
-    return "";
-  }
-}
-
-extension format on double {
-  String reais() {
-    return "R\$ ${this.toStringAsFixed(2)}".replaceAll(".", ",");
   }
 }
