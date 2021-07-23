@@ -30,34 +30,36 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => CartPage(
-                              controller: cartController,
-                            )));
-              },
-              icon: Stack(
-                children: [
-                  Icon(
-                    Icons.shopping_cart,
-                    size: 30,
-                  ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: StateBuilder<List<ProductModel>>(
-                        builder: (_, state) => CircleAvatar(
-                              radius: 9,
-                              child: Text(
-                                state.length.toString(),
-                                style: TextStyle(fontSize: 8),
-                              ),
-                            ),
-                        controller: cartController),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => CartPage(
+                    controller: cartController,
                   )
-                ],
-              ))
+              ));
+            },
+            icon: Stack(
+              children: [
+                Icon(
+                  Icons.shopping_cart,
+                  size: 30,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: CircleAvatar(
+                    radius: 9,
+                    child: Observer(builder: (_) {
+                      return Text(
+                        cartController.listLength,
+                        style: TextStyle(fontSize: 8),
+                      );
+                    }),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
       body: Observer(
@@ -66,8 +68,7 @@ class _HomePageState extends State<HomePage> {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (controller.appStatus == AppStatus.success &&
-              controller.products.isNotEmpty) {
+          } else if (controller.appStatus == AppStatus.success) {
             return ListView.builder(
               itemCount: controller.products.length,
               itemBuilder: (_, index) => ListTile(

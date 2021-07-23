@@ -1,13 +1,19 @@
 import 'package:carrinho_de_compras/shared/models/product_model.dart';
+import 'package:mobx/mobx.dart';
 
-import '../../controller.dart';
+part 'cart_controller.g.dart';
 
-class CartController extends Controller<List<ProductModel>> {
-  CartController() : super([]);
+class CartController = _CartControllerBase with _$CartController;
 
+abstract class _CartControllerBase with Store {
+  final list = <ProductModel>[];
+
+  @observable
+  String listLength = "0";
+
+  @action
   void addItem(ProductModel product) {
-    final list = state;
     list.add(product);
-    update(list);
+    listLength = list.length.toString();
   }
 }

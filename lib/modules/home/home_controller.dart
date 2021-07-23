@@ -29,16 +29,10 @@ abstract class _HomeControllerBase with Store {
         ),
       );
 
-      throw PlatformException(
-        code: "404",
-        message: "Dados indisponíveis no momento",
-      );
-
       appStatus = products.isNotEmpty ? AppStatus.success : AppStatus.empty;
     } on PlatformException catch (e) {
       errorMessage = e.message.toString();
       appStatus = AppStatus.error;
-      appStatus.message();
     } catch (e) {
       errorMessage = e.toString();
       appStatus = AppStatus.error;
