@@ -17,10 +17,16 @@ abstract class _HomeControllerBase with Store {
   Future<void> getProducts() async {
     try {
       appStatus = AppStatus.loading;
-      products = await Future.delayed(Duration(seconds: 2));
-      List.generate(50,
-          (index) => ProductModel(name: "Produto $index ", price: 1.0 * index));
-      appStatus = AppStatus.success;
+      products = await Future.delayed(Duration(seconds: 2)).then(
+        (value) => List.generate(
+          50,
+          (index) => ProductModel(
+            name: "Produto $index ",
+            price: 1.0 * index,
+          ),
+        ),
+      );
+      appStatus = products.isNotEmpty ? AppStatus.success: AppStatus.empty;
     } catch (e) {
       appStatus = AppStatus.error;
       appStatus.message();
