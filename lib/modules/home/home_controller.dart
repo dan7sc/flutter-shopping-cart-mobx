@@ -26,7 +26,7 @@ abstract class _HomeControllerBase with Store {
           ),
         ),
       );
-      appStatus = products.isNotEmpty ? AppStatus.success: AppStatus.empty;
+      appStatus = products.isNotEmpty ? AppStatus.success : AppStatus.empty;
     } catch (e) {
       appStatus = AppStatus.error;
       appStatus.message();
@@ -40,5 +40,11 @@ extension stateMessage on AppStatus {
       return "Ops! Algo deu errado";
     }
     return "";
+  }
+}
+
+extension format on double {
+  String reais() {
+    return "R\$ ${this.toStringAsFixed(2)}".replaceAll(".", ",");
   }
 }

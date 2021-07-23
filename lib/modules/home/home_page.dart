@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
               itemCount: controller.products.length,
               itemBuilder: (_, index) => ListTile(
                 title: Text(controller.products[index].name),
-                trailing: Text(controller.products[index].price.toString()),
+                trailing: Text(controller.products[index].price.reais()),
                 onTap: () {
                   cartController.addItem(controller.products[index]);
                 },

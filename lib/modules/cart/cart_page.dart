@@ -1,4 +1,5 @@
 import 'package:carrinho_de_compras/modules/cart/cart_controller.dart';
+import 'package:carrinho_de_compras/modules/home/home_controller.dart';
 import 'package:carrinho_de_compras/shared/models/product_model.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ class _CartPageState extends State<CartPage> {
                 itemCount: state.length,
                 itemBuilder: (_, index) => ListTile(
                       title: Text(state[index].name),
-                      trailing: Text(state[index].price.toString()),
+                      trailing: Text(state[index].price.reais()),
                       onTap: () {},
                     ));
           }
