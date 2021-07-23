@@ -87,15 +87,15 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    controller.errorMessage.isNotEmpty
-                    ? controller.errorMessage
-                    : "Houve um problema",
+                    "Houve um problema",
                     style: Theme.of(context)
                     .textTheme
                     .headline6!
                     .apply(color: Colors.red),
                   ),
-                  Text(controller.appStatus.message()),
+                  Text(controller.errorMessage.isNotEmpty
+                    ? controller.errorMessage
+                    : controller.appStatus.message()),
                 ],
               ),
             );
