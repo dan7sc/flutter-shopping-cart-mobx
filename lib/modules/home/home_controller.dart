@@ -23,6 +23,7 @@ abstract class _HomeControllerBase with Store {
         (value) => List.generate(
           50,
           (index) => ProductModel(
+            id: index.toString(),
             name: "Produto $index ",
             price: 1.0 * index,
           ),
