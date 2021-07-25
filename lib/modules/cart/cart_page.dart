@@ -20,8 +20,8 @@ class _CartPageState extends State<CartPage> {
       : ListView.builder(
         itemCount: widget.controller.list.length,
         itemBuilder: (_, index) => ListTile(
-          title: Text(widget.controller.list[index].name),
-          trailing: Text(widget.controller.list[index].price.reais()),
+          title: Text(widget.controller.list[index].product.name),
+          trailing: Text(widget.controller.list[index].product.price.reais()),
           onTap: () {},
         ),
       ),
