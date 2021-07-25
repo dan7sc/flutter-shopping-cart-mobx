@@ -16,15 +16,27 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       appBar: AppBar(),
       body: widget.controller.list.isEmpty
-      ? Center(child: Text("OPS! Seu carrinho está vazio"))
-      : ListView.builder(
-        itemCount: widget.controller.list.length,
-        itemBuilder: (_, index) => ListTile(
-          title: Text(widget.controller.list[index].product.name),
-          trailing: Text(widget.controller.list[index].product.price.reais()),
-          onTap: () {},
-        ),
-      ),
+          ? Center(child: Text("OPS! Seu carrinho está vazio"))
+          : ListView.builder(
+              itemCount: widget.controller.list.length,
+              itemBuilder: (_, index) => ListTile(
+                title: Text(widget.controller.list[index].product.name),
+                trailing:
+                    Text(widget.controller.list[index].product.price.reais()),
+                onTap: () {
+                  widget.controller.list[index].increment();
+                  print(
+                    "${widget.controller.list[index].product.name}: ${widget.controller.list[index].quantity}"
+                  );
+                },
+                onLongPress: () {
+                  widget.controller.list[index].decrement();
+                  print(
+                    "${widget.controller.list[index].product.name}: ${widget.controller.list[index].quantity}"
+                  );
+                },
+              ),
+            ),
     );
   }
 }
