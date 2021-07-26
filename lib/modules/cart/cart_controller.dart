@@ -7,23 +7,18 @@ part 'cart_controller.g.dart';
 class CartController = _CartControllerBase with _$CartController;
 
 abstract class _CartControllerBase with Store {
-  final List<CartItemModel> list = <CartItemModel>[];
   late CartItemModel cartItem;
 
   @observable
-  String listLength = "0";
+  ObservableList<CartItemModel> list = ObservableList.of(<CartItemModel>[]);
 
   @action
   void addItem(ProductModel product) {
     if (list.any((item) => item.product.id == product.id)) {
-      cartItem.setProduct(product);
-      cartItem.increment();
+      incrementItem(product);
     } else {
-      cartItem = CartItemModel();
-      cartItem.setProduct(product);
-      cartItem.increment();
+      cartItem = CartItemModel(product: product, quantity: 1);
       list.add(cartItem);
-      listLength = list.length.toString();
     }
   }
 
@@ -33,27 +28,30 @@ abstract class _CartControllerBase with Store {
       if (item.product.id == product.id) {
         list.remove(item);
       }
-      listLength = list.length.toString();
     });
   }
 
   @action
   void incrementItem(ProductModel product) {
-    list.forEach((item) {
-      if (item.product.id == product.id) {
-        item.increment();
+    for (int i = 0; i < list.length; i++) {
+      if (list[i].product.id == product.id) {
+        final cartItem = list[i];
+        list[i] = cartItem.copyWith(quantity: cartItem.quantity + 1);
       }
-      listLength = list.length.toString();
-    });
+    }
   }
 
   @action
   void decrementItem(ProductModel product) {
-    list.forEach((item) {
-      if (item.product.id == product.id) {
-        item.increment();
+    for (int i = 0; i < list.length; i++) {
+      if (list[i].product.id == product.id) {
+        final cartItem = list[i];
+        if (cartItem.quantity - 1 == 0) {
+          removeItem(cartItem.product);
+        } else {
+          list[i] = cartItem.copyWith(quantity: cartItem.quantity - 1);
+        }
       }
-      listLength = list.length.toString();
-    });
+    }
   }
 }

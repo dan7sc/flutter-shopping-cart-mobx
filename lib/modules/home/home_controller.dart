@@ -13,6 +13,8 @@ abstract class _HomeControllerBase with Store {
   @observable
   AppStatus appStatus = AppStatus.empty;
 
+  @observable
+  // ObservableList<ProductModel> products = ObservableList.of(<ProductModel>[]);
   List<ProductModel> products = <ProductModel>[];
 
   @action

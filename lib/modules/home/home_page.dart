@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                     radius: 9,
                     child: Observer(builder: (_) {
                       return Text(
-                        cartController.listLength,
+                        "${cartController.list.length}",
                         style: TextStyle(fontSize: 8),
                       );
                     }),

@@ -2,19 +2,20 @@ import 'package:carrinho_de_compras/shared/models/product_model.dart';
 
 class CartItemModel {
   late ProductModel product;
-  int quantity = 0;
+  int quantity;
 
-  CartItemModel();
+  CartItemModel({
+    required this.product,
+    required this.quantity,
+  });
 
-  void setProduct(ProductModel product) {
-    this.product = product;
-  }
-
-  void increment() {
-    this.quantity += 1;
-  }
-
-  void decrement() {
-    this.quantity -= 1;
+  CartItemModel copyWith({
+    ProductModel? product,
+    int? quantity,
+  }) {
+    return CartItemModel(
+      product: product ?? this.product,
+      quantity: quantity ?? this.quantity,
+    );
   }
 }
